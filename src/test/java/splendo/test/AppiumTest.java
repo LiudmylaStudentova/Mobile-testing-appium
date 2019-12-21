@@ -1,5 +1,6 @@
 package splendo.test;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -19,13 +20,14 @@ public class AppiumTest extends AndroidSetup {
     //Add in Batch Mode
     //PersonalList
 
-    HomeScreenPage HomeScreen = new HomeScreenPage();
+    HomeScreenPage HomeScreen = new HomeScreenPage(driver);
     TaskListScreenPage TaskListScreen = new TaskListScreenPage();
     AddInBatchMode AddInBatchMode = new AddInBatchMode();
     PersonalListPage PersonalList = new PersonalListPage();
 
     @Test(priority = 1)
     public void showTest()  {
+
         WebDriverWait wait = new WebDriverWait(driver, 30);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         HomeScreen.addFirstTaskButtonclick();

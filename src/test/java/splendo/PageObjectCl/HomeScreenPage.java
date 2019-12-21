@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import splendo.test.AndroidSetup;
 
-public class HomeScreenPage extends AndroidSetup {
-    //WebDriver driver= null;;
+public class HomeScreenPage {
 
+    WebDriver driver ;
     public By addFirstTaskButton = By.id(BaseTest.app_package_name + "imgFirstTask");
     public By addNewTaskButton = By.id(BaseTest.app_package_name + "ivFAB_AddTask");
     public By taskInput = By.id(BaseTest.app_package_name + "edtTaskName");
@@ -19,11 +19,12 @@ public class HomeScreenPage extends AndroidSetup {
     public By addToListButton = By.id(BaseTest.app_package_name + "spinnerLists");
     public By addToListButtonPersonal = By.xpath(BaseTest.TextView + "[@text='Personal']");
     public By popUpReapeatTaskNo = By.id("android:id/button2");
-    private WebDriver driver;
 
-
+    public HomeScreenPage(WebDriver driver) {
+        this.driver = driver;
+    }
     public void addFirstTaskButtonclick(){
-        driver.findElement(addFirstTaskButton).click();
+       driver.findElement(addFirstTaskButton).click();
     }
     public void taskInputSendKey(){
         driver.findElement(taskInput).sendKeys("test task");
