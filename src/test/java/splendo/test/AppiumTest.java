@@ -1,6 +1,5 @@
 package splendo.test;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -12,7 +11,7 @@ import splendo.PageObjectCl.TaskListScreenPage;
 import java.util.concurrent.TimeUnit;
 
 
-public class AppiumTest extends AndroidSetup {
+class AppiumTest extends AndroidSetup {
     //String app_package_name = "com.splendapps.splendo:id/";
     //String TextView = "//android.widget.TextView";
     // Home Screen
@@ -20,7 +19,7 @@ public class AppiumTest extends AndroidSetup {
     //Add in Batch Mode
     //PersonalList
 
-    HomeScreenPage HomeScreen = new HomeScreenPage(driver);
+    HomeScreenPage HomeScreen = new HomeScreenPage();
     TaskListScreenPage TaskListScreen = new TaskListScreenPage();
     AddInBatchMode AddInBatchMode = new AddInBatchMode();
     PersonalListPage PersonalList = new PersonalListPage();
@@ -30,17 +29,17 @@ public class AppiumTest extends AndroidSetup {
 
         WebDriverWait wait = new WebDriverWait(driver, 30);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        HomeScreen.addFirstTaskButtonclick();
-        HomeScreen.taskInputSendKey();
-        HomeScreen.dueDateClick();
-        HomeScreen.doneButtonClick();
-        HomeScreen.dueTimeClick();
-        HomeScreen.doneButtonClick();
-        HomeScreen.repeatButtonClick();
-        HomeScreen.repeatButtonOnceAWeekClick();
-        HomeScreen.addToListButtonClick();
-        HomeScreen.addToListButtonPersonalClick();
-        HomeScreen.saveTaskclick();
+        driver.findElement(HomeScreen.addFirstTaskButton).click();
+        driver.findElement(HomeScreen.taskInput).sendKeys("test task");
+        driver.findElement(HomeScreen.dueDate).click();
+        driver.findElement(HomeScreen.doneButton).click();
+        driver.findElement(HomeScreen.dueTime).click();
+        driver.findElement(HomeScreen.doneButton).click();
+        driver.findElement(HomeScreen.repeatButton).click();
+        driver.findElement(HomeScreen.repeatButtonOnceAWeek).click();
+        driver.findElement(HomeScreen.addToListButton).click();
+        driver.findElement(HomeScreen.addToListButtonPersonal).click();
+        driver.findElement(HomeScreen.saveTask).click();
 
         wait.until(ExpectedConditions.presenceOfElementLocated(TaskListScreen.taskName));
 
@@ -52,11 +51,16 @@ public class AppiumTest extends AndroidSetup {
     public void completeTask() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        TaskListScreen.taskCheckBoxClick();
-        HomeScreen.popUpReapeatTaskNoClick();
+        driver.findElement(TaskListScreen.taskCheckBox).click();
+
+        driver.findElement(HomeScreen.popUpReapeatTaskNo).click();
+
         wait.until(ExpectedConditions.presenceOfElementLocated(TaskListScreen.toolBar));
-        TaskListScreen.toolBarClick();
-        TaskListScreen.finishedMenuItemClick();
+
+        driver.findElement(TaskListScreen.toolBar).click();
+
+        driver.findElement(TaskListScreen.finishedMenuItem).click();
+
         assert driver.findElement(TaskListScreen.taskName).isDisplayed();
     }
 
@@ -135,3 +139,4 @@ public class AppiumTest extends AndroidSetup {
         assert driver.findElement(TaskListScreen.taskName).isDisplayed();
     }
 }
+
